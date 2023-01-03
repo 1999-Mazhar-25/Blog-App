@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="categories")
@@ -23,4 +24,7 @@ public class Category {
 
     @Column(name = "description")
     private String categoryDescription;
+    
+    @OneToMany(mappedBy ="categoryId",cascade = CascadeType.ALL ,fetch=FetchType.LAZY)
+    private List<Post> postId;
 }
