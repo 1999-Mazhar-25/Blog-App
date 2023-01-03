@@ -1,2 +1,4 @@
-package com.mazhar.blogs.app.controllers;public class ProductController {
+package com.mazhar.blogs.app.controllers;
+
+public class ProductController {
 }
