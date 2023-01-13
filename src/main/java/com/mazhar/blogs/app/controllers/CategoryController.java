@@ -39,9 +39,12 @@ public class CategoryController {
     @GetMapping("/getAllCategories")
     public ResponseEntity<CategoryReponse> getAllCategories(
             @RequestParam(value="pageNumber",required = false,defaultValue = "0") Integer pageNumber,
-            @RequestParam(value = "pageSize", required = false,defaultValue ="3") Integer pageSize
-    ){
-        CategoryReponse categoryList = this.categoryService.getAllCategory(pageNumber,pageSize);
+            @RequestParam(value = "pageSize", required = false,defaultValue ="3") Integer pageSize,
+            @RequestParam(value ="sortBy", required = false,defaultValue ="categoryId") String sortBy,
+            @RequestParam(value ="sortDir", required = false,defaultValue ="ASC") String sortDir
+
+            ){
+        CategoryReponse categoryList = this.categoryService.getAllCategory(pageNumber,pageSize,sortBy,sortDir);
        return new ResponseEntity<>(categoryList,HttpStatus.OK);
     }
 

@@ -16,7 +16,7 @@ public interface CategoryService {
     CategoryDto getCategoryById(Integer categoryId);
 
     //get all
-    CategoryReponse getAllCategory(Integer pageNumber, Integer pageSize);
+    CategoryReponse getAllCategory(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
 
     //delete

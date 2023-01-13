@@ -29,9 +29,11 @@ public class PostController {
     @GetMapping("/posts")
     public ResponseEntity<PostResponse> getAllPosts(
             @RequestParam(value="pageNumber",required = false,defaultValue="0") Integer pageNumber,
-            @RequestParam(value="pageSize",required = false,defaultValue="3") Integer pageSize
+            @RequestParam(value="pageSize",required = false,defaultValue="3") Integer pageSize,
+            @RequestParam(value ="sortBy", required = false,defaultValue ="title") String sortBy,
+            @RequestParam(value ="sortDir", required = false,defaultValue ="ASC") String sortDir
     ){
-        final var allPost = postService.getAllPost(pageNumber, pageSize);
+        final var allPost = postService.getAllPost(pageNumber, pageSize,sortBy,sortDir);
         return new ResponseEntity<>(allPost, HttpStatus.OK);
     }
 
