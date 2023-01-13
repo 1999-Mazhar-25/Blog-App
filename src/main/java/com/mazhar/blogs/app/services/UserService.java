@@ -1,8 +1,7 @@
 package com.mazhar.blogs.app.services;
 
 import com.mazhar.blogs.app.payloads.UserDto;
-
-import java.util.List;
+import com.mazhar.blogs.app.payloads.UserResponse;
 
 public interface UserService {
 
@@ -12,7 +11,7 @@ public interface UserService {
 
     UserDto getUserById(Integer userId);
 
-    List<UserDto> getAllUser();
+    UserResponse getAllUser(Integer pageNumber, Integer pageSize);
 
     void deleteUserById(Integer userId);
 }

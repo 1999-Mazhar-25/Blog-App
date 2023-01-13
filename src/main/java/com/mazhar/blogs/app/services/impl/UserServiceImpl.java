@@ -3,10 +3,14 @@ package com.mazhar.blogs.app.services.impl;
 import com.mazhar.blogs.app.entities.User;
 import com.mazhar.blogs.app.exceptions.ResourceNotFoundException;
 import com.mazhar.blogs.app.payloads.UserDto;
+import com.mazhar.blogs.app.payloads.UserResponse;
 import com.mazhar.blogs.app.repositories.UserRepo;
 import com.mazhar.blogs.app.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,11 +59,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> getAllUser() {
-        List<User> users = this.userRepo.findAll();
+    public UserResponse getAllUser(Integer pageNumber, Integer pageSize) {
+
+        Pageable p = PageRequest.of(pageNumber, pageSize);
+       Page<User> usersPage = this.userRepo.findAll(p);
+        List<User> users = usersPage.getContent();
         List<UserDto> userDto = users.stream()
                 .map(user -> this.userToDto(user)).collect(Collectors.toList());
-        return userDto;
+        UserResponse userResponse = new UserResponse();
+        userResponse.setContent(userDto);
+        userResponse.setPageNumber(usersPage.getNumber());
+        userResponse.setPageSize(usersPage.getSize());
+        userResponse.setTotalPages(usersPage.getTotalPages());
+        userResponse.setTotalElement(usersPage.getTotalElements());
+        userResponse.setLastPage(usersPage.isLast());
+        return userResponse;
     }
 
     @Override

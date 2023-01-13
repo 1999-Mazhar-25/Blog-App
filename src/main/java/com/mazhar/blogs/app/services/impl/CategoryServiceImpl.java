@@ -3,10 +3,14 @@ package com.mazhar.blogs.app.services.impl;
 import com.mazhar.blogs.app.entities.Category;
 import com.mazhar.blogs.app.exceptions.ResourceNotFoundException;
 import com.mazhar.blogs.app.payloads.CategoryDto;
+import com.mazhar.blogs.app.payloads.CategoryReponse;
 import com.mazhar.blogs.app.repositories.CategoryRepo;
 import com.mazhar.blogs.app.services.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,14 +56,24 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public List<CategoryDto> getAllCategory() {
+    public CategoryReponse getAllCategory(Integer pageNumber, Integer pageSize) {
 
-        List<Category> categories = this.categoryRepo.findAll();
+        Pageable p = PageRequest.of(pageNumber, pageSize);
+        Page<Category> catPage = this.categoryRepo.findAll(p);
+        List<Category> categories = catPage.getContent();
        List<CategoryDto> categoryDtoList = categories.stream()
                 .map(category ->this.modelMapper.map(category,CategoryDto.class))
                 .collect(Collectors.toList());
 
-        return categoryDtoList;
+       CategoryReponse categoryReponse = new CategoryReponse();
+       categoryReponse.setContent(categoryDtoList);
+       categoryReponse.setPageNumber(catPage.getNumber());
+       categoryReponse.setPageSize(catPage.getSize());
+       categoryReponse.setTotalPages(catPage.getTotalPages());
+       categoryReponse.setTotalElement(catPage.getTotalElements());
+       categoryReponse.setLastPage(catPage.isLast());
+
+        return categoryReponse;
     }
 
     @Override

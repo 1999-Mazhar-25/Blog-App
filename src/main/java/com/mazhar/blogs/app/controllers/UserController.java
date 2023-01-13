@@ -2,6 +2,7 @@ package com.mazhar.blogs.app.controllers;
 
 import com.mazhar.blogs.app.payloads.ApiResponse;
 import com.mazhar.blogs.app.payloads.UserDto;
+import com.mazhar.blogs.app.payloads.UserResponse;
 import com.mazhar.blogs.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -59,9 +60,12 @@ public class UserController {
     //GET - get All users
 
     @GetMapping("/getAllUsers")
-    public ResponseEntity<List<UserDto>> getAllUsers(){
-        List<UserDto> users = this.userService.getAllUser();
-        return new ResponseEntity<List<UserDto>>(users,HttpStatus.OK);
+    public ResponseEntity<UserResponse> getAllUsers(
+            @RequestParam(value="pageNumber",defaultValue="0",required=false) Integer pageNumber,
+            @RequestParam(value="pageSize", defaultValue="3",required=false) Integer pageSize
+    ){
+        UserResponse users = this.userService.getAllUser(pageNumber,pageSize);
+        return new ResponseEntity<UserResponse>(users,HttpStatus.OK);
     }
 
 }

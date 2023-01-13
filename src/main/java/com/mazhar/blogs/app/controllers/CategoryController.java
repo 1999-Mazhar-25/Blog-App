@@ -1,6 +1,7 @@
 package com.mazhar.blogs.app.controllers;
 
 import com.mazhar.blogs.app.payloads.CategoryDto;
+import com.mazhar.blogs.app.payloads.CategoryReponse;
 import com.mazhar.blogs.app.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,8 +37,11 @@ public class CategoryController {
 
     //GET  - get all categories
     @GetMapping("/getAllCategories")
-    public ResponseEntity<List<CategoryDto>> getAllCategories(){
-       List<CategoryDto> categoryList = this.categoryService.getAllCategory();
+    public ResponseEntity<CategoryReponse> getAllCategories(
+            @RequestParam(value="pageNumber",required = false,defaultValue = "0") Integer pageNumber,
+            @RequestParam(value = "pageSize", required = false,defaultValue ="3") Integer pageSize
+    ){
+        CategoryReponse categoryList = this.categoryService.getAllCategory(pageNumber,pageSize);
        return new ResponseEntity<>(categoryList,HttpStatus.OK);
     }
 

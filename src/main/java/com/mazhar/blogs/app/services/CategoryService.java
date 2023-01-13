@@ -1,8 +1,7 @@
 package com.mazhar.blogs.app.services;
 
 import com.mazhar.blogs.app.payloads.CategoryDto;
-
-import java.util.List;
+import com.mazhar.blogs.app.payloads.CategoryReponse;
 
 public interface CategoryService {
 
@@ -17,7 +16,7 @@ public interface CategoryService {
     CategoryDto getCategoryById(Integer categoryId);
 
     //get all
-    List<CategoryDto> getAllCategory();
+    CategoryReponse getAllCategory(Integer pageNumber, Integer pageSize);
 
 
     //delete

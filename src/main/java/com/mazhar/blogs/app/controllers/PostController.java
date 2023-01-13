@@ -1,6 +1,7 @@
 package com.mazhar.blogs.app.controllers;
 
 import com.mazhar.blogs.app.payloads.PostDto;
+import com.mazhar.blogs.app.payloads.PostResponse;
 import com.mazhar.blogs.app.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,9 +27,12 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public ResponseEntity<List<PostDto>> getAllPosts(){
-        List<PostDto> postDto = postService.getAllPost();
-        return new ResponseEntity<>(postDto, HttpStatus.OK);
+    public ResponseEntity<PostResponse> getAllPosts(
+            @RequestParam(value="pageNumber",required = false,defaultValue="0") Integer pageNumber,
+            @RequestParam(value="pageSize",required = false,defaultValue="3") Integer pageSize
+    ){
+        final var allPost = postService.getAllPost(pageNumber, pageSize);
+        return new ResponseEntity<>(allPost, HttpStatus.OK);
     }
 
 
