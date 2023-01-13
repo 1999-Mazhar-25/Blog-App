@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -30,4 +31,5 @@ public class UserDto {
 
     @NotEmpty(message="Something to be written in about")
     private String about;
+
 }

@@ -1,11 +1,16 @@
 package com.mazhar.blogs.app.entities;
 
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name="post")
+@Data
+@NoArgsConstructor
 public class Post {
 
     @Id
@@ -24,9 +29,9 @@ public class Post {
     
     @ManyToOne
     @JoinColumn(name ="category_id")
-    private Category categoryId;
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 }

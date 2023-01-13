@@ -24,8 +24,8 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public CategoryDto createCategory(CategoryDto categoryDto) {
         Category category = this.modelMapper.map(categoryDto, Category.class);
-        this.categoryRepo.save(category);
-        return categoryDto;
+        Category addedCategory = this.categoryRepo.save(category);
+        return this.modelMapper.map(addedCategory, CategoryDto.class);
     }
 
     @Override
