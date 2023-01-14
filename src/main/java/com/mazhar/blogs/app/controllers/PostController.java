@@ -71,4 +71,11 @@ public class PostController {
         this.postService.deletePost(postId);
         return ResponseEntity.ok("Post Deleted Successfully !!!!!!");
     }
+
+    @GetMapping("/post/search/{key}")
+    public ResponseEntity<List<PostDto>> searchPost(@PathVariable("key") String keyword){
+
+        List<PostDto> result = this.postService.searchPost(keyword);
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
 }
