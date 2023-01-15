@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,4 +27,6 @@ public class PostDto {
     private CategoryDto category;
 
     private UserDto user;
+
+    private List<CommentDto> comments;
 }

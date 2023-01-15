@@ -1,5 +1,6 @@
 package com.mazhar.blogs.app.controllers;
 
+import com.mazhar.blogs.app.config.AppConstants;
 import com.mazhar.blogs.app.payloads.CategoryDto;
 import com.mazhar.blogs.app.payloads.CategoryReponse;
 import com.mazhar.blogs.app.services.CategoryService;
@@ -38,10 +39,14 @@ public class CategoryController {
     //GET  - get all categories
     @GetMapping("/getAllCategories")
     public ResponseEntity<CategoryReponse> getAllCategories(
-            @RequestParam(value="pageNumber",required = false,defaultValue = "0") Integer pageNumber,
-            @RequestParam(value = "pageSize", required = false,defaultValue ="3") Integer pageSize,
-            @RequestParam(value ="sortBy", required = false,defaultValue ="categoryId") String sortBy,
-            @RequestParam(value ="sortDir", required = false,defaultValue ="ASC") String sortDir
+            @RequestParam(value="pageNumber",required = false,
+                    defaultValue = AppConstants.PAGE_NUMBER) Integer pageNumber,
+            @RequestParam(value = "pageSize", required = false,
+                    defaultValue =AppConstants.PAGE_SIZE) Integer pageSize,
+            @RequestParam(value ="sortBy", required = false,
+                    defaultValue =AppConstants.SORT_CATEGORY_BY) String sortBy,
+            @RequestParam(value ="sortDir", required = false,
+                    defaultValue =AppConstants.SORT_DIR) String sortDir
 
             ){
         CategoryReponse categoryList = this.categoryService.getAllCategory(pageNumber,pageSize,sortBy,sortDir);

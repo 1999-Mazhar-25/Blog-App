@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="post")
@@ -34,4 +36,7 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy="post" ,cascade=CascadeType.ALL)
+    private List<Comment> comments;
 }
