@@ -5,6 +5,8 @@ import com.mazhar.blogs.app.payloads.UserResponse;
 
 public interface UserService {
 
+    UserDto registerNewUser(UserDto userDto);
+
     UserDto createUser(UserDto userDto);
 
     UserDto updateUser(UserDto userDto, Integer userId);

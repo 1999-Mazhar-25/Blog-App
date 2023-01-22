@@ -8,4 +8,6 @@ public class AppConstants {
     public static final String SORT_POST_BY="title";
     public static final String SORT_USER_BY="id";
     public static final String SORT_CATEGORY_BY="categoryId";
+    public static final Integer ROLE_ADMIN=501;
+    public static final Integer ROLE_NORMAL=502;
 }

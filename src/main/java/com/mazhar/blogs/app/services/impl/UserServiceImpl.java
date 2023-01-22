@@ -1,9 +1,12 @@
 package com.mazhar.blogs.app.services.impl;
 
+import com.mazhar.blogs.app.config.AppConstants;
+import com.mazhar.blogs.app.entities.Roles;
 import com.mazhar.blogs.app.entities.User;
 import com.mazhar.blogs.app.exceptions.ResourceNotFoundException;
 import com.mazhar.blogs.app.payloads.UserDto;
 import com.mazhar.blogs.app.payloads.UserResponse;
+import com.mazhar.blogs.app.repositories.RolesRepo;
 import com.mazhar.blogs.app.repositories.UserRepo;
 import com.mazhar.blogs.app.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -12,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +31,28 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RolesRepo rolesRepo;
+
+
+    @Override
+    public UserDto registerNewUser(UserDto userDto) {
+        User user =this.modelMapper.map(userDto,User.class);
+        //encode the password
+        user.setPassword(this.passwordEncoder.encode(userDto.getPassword()));
+        //set roles by default there are only two roles
+        //setting all user havin a user role by default
+        Roles roles =this.rolesRepo.findById(AppConstants.ROLE_NORMAL).get();
+        //adding role to a set method(we cannot add directly using setRoles method
+
+        user.getRoles().add(roles);
+       User newUser = this.userRepo.save(user);
+
+       return this.modelMapper.map(newUser,UserDto.class);
+    }
 
     @Override
     public UserDto createUser(UserDto userDto) {

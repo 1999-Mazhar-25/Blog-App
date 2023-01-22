@@ -4,6 +4,8 @@ package com.mazhar.blogs.app.controllers;
 import com.mazhar.blogs.app.exceptions.ApiException;
 import com.mazhar.blogs.app.payloads.JwtAuthRequest;
 import com.mazhar.blogs.app.payloads.JwtAuthResponse;
+import com.mazhar.blogs.app.payloads.UserDto;
+import com.mazhar.blogs.app.services.UserService;
 import com.mazhar.blogs.app.utils.JwtTokenHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,9 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> createToken(
             @RequestBody JwtAuthRequest jwtAuthRequest
@@ -55,5 +60,14 @@ public class AuthController {
             throw new ApiException("Invalid Username or password !!");
 
         }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> registerNewUser(@RequestBody UserDto userDto)
+    {
+        UserDto userDto1 = this.userService.registerNewUser(userDto);
+
+        return new ResponseEntity<>(userDto1, HttpStatus.CREATED);
+
     }
 }
