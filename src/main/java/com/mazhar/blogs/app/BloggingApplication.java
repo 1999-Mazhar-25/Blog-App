@@ -26,8 +26,7 @@ public class BloggingApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println(this.passwordEncoder.encode("saif123"));
-		//$2a$10$Isn.hAQ06VrlcRbgPyi8AunFjUxX7.kapeW/QJmXg81hVXjoD/npq
-		//test456
+		//$2a$10$A36gi3jeJkd8fHiJO/kGqeybf8GRt8DWnRL6sJ37JoWeVMqB/E7cS
 
 
 	}
