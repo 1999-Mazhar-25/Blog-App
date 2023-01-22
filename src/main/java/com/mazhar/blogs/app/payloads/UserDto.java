@@ -1,5 +1,6 @@
 package com.mazhar.blogs.app.payloads;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class UserDto {
 
     @NotEmpty
     @Min(4)
+//    @JsonIgnore - this property will ignore the password field from userDto
     private String password;
 
     @NotEmpty(message="Something to be written in about")

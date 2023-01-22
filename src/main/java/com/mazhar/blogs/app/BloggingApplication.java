@@ -28,6 +28,10 @@ public class BloggingApplication implements CommandLineRunner {
 		System.out.println(this.passwordEncoder.encode("saif123"));
 		//$2a$10$A36gi3jeJkd8fHiJO/kGqeybf8GRt8DWnRL6sJ37JoWeVMqB/E7cS
 
+		System.out.println("This is for user mazhar"+this.passwordEncoder
+				.encode("mazhar123"));
+		//
+
 
 	}
 }
