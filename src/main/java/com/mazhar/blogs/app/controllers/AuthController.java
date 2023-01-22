@@ -1,6 +1,7 @@
 package com.mazhar.blogs.app.controllers;
 
 
+import com.mazhar.blogs.app.exceptions.ApiException;
 import com.mazhar.blogs.app.payloads.JwtAuthRequest;
 import com.mazhar.blogs.app.payloads.JwtAuthResponse;
 import com.mazhar.blogs.app.utils.JwtTokenHelper;
@@ -51,7 +52,7 @@ public class AuthController {
         } catch (BadCredentialsException e) {
 
             System.out.println("Invalid Details !!!");
-            throw new Exception("Invalid Username or password !!");
+            throw new ApiException("Invalid Username or password !!");
 
         }
     }

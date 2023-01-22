@@ -8,6 +8,7 @@ import com.mazhar.blogs.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,7 +42,9 @@ public class UserController {
     }
 
     //DELETE - delete user by Id
-
+//    Only  user has the authority to access this method,here preautorize is case sensitive
+    //and also in DB u need to provide roles name as "ROLE_ADMIN"
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{userId}")
     public ResponseEntity<ApiResponse> deleteUserById(@PathVariable("userId") Integer uid){
         this.userService.deleteUserById(uid);
